@@ -1,0 +1,46 @@
+.gamecard {
+	background: #fafafa;
+	padding: 0.8em;
+	color: black;
+	position: relative;
+	cursor: pointer;
+	min-width: 165px;
+	min-height: 170px;
+	border-radius: 4px;
+	border-bottom: 2px solid black;
+	border-right: 2px solid black;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.8em;
+}
+
+.selected {
+	background: rgb(230, 255, 230);
+}
+
+h5 {
+	margin: 0;
+	grid-column: span 2;
+}
+
+.disabled {
+	background: #d2d2d2;
+	cursor: not-allowed;
+}
+
+.game-details {
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 6px;
+	justify-content: center;
+}
+
+.game-cover {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	object-fit: cover;
+	image-rendering: -webkit-optimize-contrast;
+}
