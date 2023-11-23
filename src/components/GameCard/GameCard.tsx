@@ -37,23 +37,20 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
 		}
 	}
 
-	function gameCardStyler() {
+	function handleStyle() {
 		if (isChecked) return 'selected'
 		if (game.size > (selectedStorageUnit.size - totalSize())) return 'disabled'
 		return ''
 	}
 
 	return (
-		<li className={`gamecard ${gameCardStyler()}`} onClick={handleClick}>
+		<li className={`gamecard ${handleStyle()}`} onClick={handleClick}>
 			<h5>{game.name}</h5>
 			<img
 				src={imageUrl}
 				className='game-cover'
 				loading='lazy'
-				onError={() => {
-					console.log('asset failed to load')
-					setImageUrl(`../../../assets/2D/${game.id}.png`)
-				}}
+				onError={() => setImageUrl(`../../../assets/2D/${game.id}.png`)}
 			/>
 			<div className='game-details'>
 				<small>{game.size} Mb</small>
