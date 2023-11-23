@@ -1,13 +1,12 @@
 import { memo, useMemo } from 'react';
+import GamesDB from '../../databases/newdb.json';
+import useGamesStore from '../../hooks/useGamesStore';
 import GameCard, { Game } from '../GameCard/GameCard';
 import './GameList.css';
-import useGamesStore from '../../hooks/useGamesStore';
 
-type GameListProps = {
-	gameList: Array<Game>
-};
+const gameList = GamesDB.games
 
-const GameList: React.FC<GameListProps> = memo(({ gameList }) => {
+const GameList: React.FC = memo(() => {
 	const searchValue = useGamesStore(state => state.searchValue)
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
 	const consoleFilters = useGamesStore(state => state.consoleFilters)
@@ -18,12 +17,13 @@ const GameList: React.FC<GameListProps> = memo(({ gameList }) => {
 			if (searchValue == '') return consoleFilters.includes(item.console)
 			return item.name.toLowerCase().includes(searchValueLowerCase) && consoleFilters.includes(item.console)
 		})
-	}, [consoleFilters, gameList, searchValue])
+	}, [consoleFilters, searchValue])
 
 	return (<>
-		{selectedStorageUnit.size > 0 ?
-			<ul role='list' className='game-list grid'>
-				{filteredList.map(game => {
+		{!(selectedStorageUnit.size > 0) && <h1>⬆️ Selecione uma unidade de armazenamento para visualizar os jogos</h1>}
+		<ul role='list' className='game-list grid'>
+			{selectedStorageUnit.size > 0 &&
+				filteredList.map(game => {
 					return (
 						<GameCard
 							key={game.id}
@@ -31,8 +31,7 @@ const GameList: React.FC<GameListProps> = memo(({ gameList }) => {
 						/>
 					)
 				})}
-			</ul> : <h1>Selecione uma unidade de armazenamento acima para visualizar os jogos</h1>
-		}
+		</ul>
 	</>)
 })
 

@@ -48,7 +48,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
 
 	return (
 		<li className={`gamecard ${handleStyle()}`} onClick={handleClick}>
-			<h5>{game.name}</h5>
+			<h4>{game.name}</h4>
 			<img
 				src={imageUrl}
 				className='game-cover'
