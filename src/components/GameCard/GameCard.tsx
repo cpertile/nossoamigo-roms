@@ -15,10 +15,13 @@ type GameCardProps = {
 }
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
-	const { selectedGames } = useGamesStore()
+	const selectedGames = useGamesStore(state => state.selectedGames)
+	const addGame = useGamesStore(state => state.addGame)
+	const removeGame = useGamesStore(state => state.removeGame)
+	const totalSize = useGamesStore(state => state.totalSize)
+	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
 	const [imageUrl, setImageUrl] = useState(`../../../assets/3D/${game.id}.png`)
 	const [isChecked, setIsChecked] = useState(selectedGames.find(item => item.id === game.id) ? true : false)
-	const { addGame, removeGame, totalSize, selectedStorageUnit } = useGamesStore()
 
 	useEffect(() => {
 		setIsChecked(selectedGames.find(item => item.id === game.id) ? true : false)
