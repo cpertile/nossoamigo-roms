@@ -26,6 +26,9 @@ const storageUnits: StorageUnit[] = [
 ]
 
 const StorageUnitSelector: React.FC = () => {
+	// Subscribing to changes on "selectedGames"
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const selectedGames = useGamesStore(state => state.selectedGames)
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
 	const changeStorageUnit = useGamesStore(state => state.changeStorageUnit)
 	const totalSize = useGamesStore(state => state.totalSize)
@@ -37,7 +40,7 @@ const StorageUnitSelector: React.FC = () => {
 			<Button onClick={() => changeStorageUnit(storageUnits[1])}>HD 500 Gb</Button>
 			<Button onClick={() => changeStorageUnit(storageUnits[2])}>HD 1 Tb</Button>
 		</span>
-		<span style={{ padding: '6px' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Gb</span>
+		<span style={{ padding: '6px' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Mb</span>
 		<Button onClick={() => clear()}>Zerar</Button>
 	</>)
 }

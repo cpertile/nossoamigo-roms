@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { StorageUnit } from '../App'
 import { Game } from '../components/GameCard/GameCard'
+import { StorageUnit } from '../components/StorageUnitSelector/StorageUnitSelector'
 
 type GamesStore = {
 	searchValue: string
