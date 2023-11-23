@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react'
 import './App.css'
+import Button from './components/Button/Button'
 import GameList from './components/GameList/GameList'
 import Input from './components/Input/Input'
 import GamesDB from './databases/newdb.json'
 import useGamesStore from './hooks/useGamesStore'
-import Button from './components/Button/Button'
 
 export interface StorageUnit {
 	id: number
@@ -30,19 +30,18 @@ const storageUnits: StorageUnit[] = [
 	}
 ]
 
-// TODO: implement Wii | Gamecube filter (use the store)
-
 function App() {
 	const gameList = GamesDB.games
 	const [searchValue, setsearchValue] = useState('')
-	const [consoleFilters, setConsoleFilters] = useState({ wii: true, gamecube: true })
+	const [consoleFilters, setConsoleFilters] = useState(['wii', 'gamecube'])
 	const { totalSize, clear, selectedStorageUnit, changeStorageUnit } = useGamesStore()
 
 	const filteredGameList = useMemo(() => {
 		return gameList.filter(item => {
-			return item.name.toLowerCase().includes(searchValue.toLowerCase())
+			if (searchValue == '') return consoleFilters.includes(item.console)
+			return item.name.toLowerCase().includes(searchValue.toLowerCase()) && consoleFilters.includes(item.console)
 		})
-	}, [gameList, searchValue])
+	}, [consoleFilters, gameList, searchValue])
 
 	return (
 		<>
@@ -62,32 +61,44 @@ function App() {
 					onChange={e => setsearchValue(e.target.value)}
 				/>
 
-				<div>
+				<div style={{ padding: '6px' }}>
 					<h4>Filtros / Ordenação</h4>
 					<label htmlFor='wii-checkbox'>Wii</label>
 					<input
 						id='wii-checkbox'
 						type='checkbox'
 						readOnly
-						checked={consoleFilters.wii}
-						onChange={() => setConsoleFilters({ ...consoleFilters, wii: !consoleFilters.wii })}
+						checked={consoleFilters.includes('wii')}
+						onChange={() => {
+							if (consoleFilters.includes('wii')) {
+								setConsoleFilters(state => state.filter(item => item != 'wii'))
+							} else {
+								setConsoleFilters(state => [...state, 'wii'])
+							}
+						}}
 					/>
 					<label htmlFor='gamecube-checkbox'>GameCube</label>
 					<input
 						id='gamecube=checkbox'
 						type='checkbox'
 						readOnly
-						checked={consoleFilters.gamecube}
-						onChange={() => setConsoleFilters({...consoleFilters, gamecube: !consoleFilters.gamecube})}
+						checked={consoleFilters.includes('gamecube')}
+						onChange={() => {
+							if (consoleFilters.includes('gamecube')) {
+								setConsoleFilters(state => state.filter(item => item != 'gamecube'))
+							} else {
+								setConsoleFilters(state => [...state, 'gamecube'])
+							}
+						}}
 					/>
 				</div>
 
-				<span style={{ display: 'flex', gap: '4px', justifyContent: 'space-around' }}>
+				<span style={{ display: 'flex', gap: '4px', justifyContent: 'space-around', margin: '6px' }}>
 					<Button onClick={() => changeStorageUnit(storageUnits[0])}>Pendrive 64 Gb</Button>
 					<Button onClick={() => changeStorageUnit(storageUnits[1])}>HD 500 Gb</Button>
 					<Button onClick={() => changeStorageUnit(storageUnits[2])}>HD 1 Tb</Button>
 				</span>
-				<span>Usado: {totalSize()} de {selectedStorageUnit?.size} Gb</span>
+				<span style={{ padding: '6px' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Gb</span>
 				<Button onClick={() => clear()}>Zerar</Button>
 			</div>
 
