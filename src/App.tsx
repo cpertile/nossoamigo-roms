@@ -35,6 +35,7 @@ const storageUnits: StorageUnit[] = [
 function App() {
 	const gameList = GamesDB.games
 	const [searchValue, setsearchValue] = useState('')
+	const [consoleFilters, setConsoleFilters] = useState({ wii: true, gamecube: true })
 	const { totalSize, clear, selectedStorageUnit, changeStorageUnit } = useGamesStore()
 
 	const filteredGameList = useMemo(() => {
@@ -60,7 +61,27 @@ function App() {
 					value={searchValue}
 					onChange={e => setsearchValue(e.target.value)}
 				/>
-				<h4>Filtros / Ordenação</h4>
+
+				<div>
+					<h4>Filtros / Ordenação</h4>
+					<label htmlFor='wii-checkbox'>Wii</label>
+					<input
+						id='wii-checkbox'
+						type='checkbox'
+						readOnly
+						checked={consoleFilters.wii}
+						onChange={() => setConsoleFilters({ ...consoleFilters, wii: !consoleFilters.wii })}
+					/>
+					<label htmlFor='gamecube-checkbox'>GameCube</label>
+					<input
+						id='gamecube=checkbox'
+						type='checkbox'
+						readOnly
+						checked={consoleFilters.gamecube}
+						onChange={() => setConsoleFilters({...consoleFilters, gamecube: !consoleFilters.gamecube})}
+					/>
+				</div>
+
 				<span style={{ display: 'flex', gap: '4px', justifyContent: 'space-around' }}>
 					<Button onClick={() => changeStorageUnit(storageUnits[0])}>Pendrive 64 Gb</Button>
 					<Button onClick={() => changeStorageUnit(storageUnits[1])}>HD 500 Gb</Button>
