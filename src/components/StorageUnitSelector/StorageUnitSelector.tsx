@@ -32,7 +32,12 @@ const StorageUnitSelector: React.FC = () => {
 	const changeStorageUnit = useGamesStore(state => state.changeStorageUnit)
 
 	return (<>
-		<span style={{ display: 'flex', gap: '4px', justifyContent: 'space-around', margin: '6px' }}>
+		<span style={{
+			display: 'flex',
+			gap: '4px',
+			justifyContent: 'space-around',
+			margin: '6px'
+		}}>
 			<Button onClick={() => changeStorageUnit(storageUnits[0])}>Pendrive 64 Gb</Button>
 			<Button onClick={() => changeStorageUnit(storageUnits[1])}>HD 500 Gb</Button>
 			<Button onClick={() => changeStorageUnit(storageUnits[2])}>HD 1 Tb</Button>
