@@ -1,5 +1,7 @@
+import { useState } from 'react'
+import DropDown from 'react-bootstrap/Dropdown'
+import DropDownButton from 'react-bootstrap/DropdownButton'
 import useGamesStore from '../../hooks/useGamesStore'
-import Button from '../Button/Button'
 
 export interface StorageUnit {
 	id: number
@@ -30,18 +32,23 @@ const StorageUnitSelector: React.FC = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const selectedGames = useGamesStore(state => state.selectedGames)
 	const changeStorageUnit = useGamesStore(state => state.changeStorageUnit)
+	const [title, setTitle] = useState('Selecione uma unidade de armazenamento: ')
+
+	function handleSelect(e: any) {
+		e.preventDefault()
+		setTitle(e.target.innerText)
+		changeStorageUnit(storageUnits[e.target.name])
+	}
 
 	return (<>
-		<span style={{
-			display: 'flex',
-			gap: '4px',
-			justifyContent: 'space-around',
-			margin: '6px'
-		}}>
-			<Button onClick={() => changeStorageUnit(storageUnits[0])}>Pendrive 64 Gb</Button>
-			<Button onClick={() => changeStorageUnit(storageUnits[1])}>HD 500 Gb</Button>
-			<Button onClick={() => changeStorageUnit(storageUnits[2])}>HD 1 Tb</Button>
-		</span>
+		<DropDownButton
+			variant='light'
+			title={title}
+		>
+			<DropDown.Item as='button' name='0' onClick={handleSelect}>{storageUnits[0].name}</DropDown.Item>
+			<DropDown.Item as='button' name='1' onClick={handleSelect}>{storageUnits[1].name}</DropDown.Item>
+			<DropDown.Item as='button' name='2' onClick={handleSelect}>{storageUnits[2].name}</DropDown.Item>
+		</DropDownButton>
 	</>)
 }
 export default StorageUnitSelector

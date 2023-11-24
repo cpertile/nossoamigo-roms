@@ -20,7 +20,6 @@ const GameList: React.FC = memo(() => {
 	}, [consoleFilters, searchValue])
 
 	return (<>
-		{!(selectedStorageUnit.size > 0) && <h1>⬆️ Selecione uma unidade de armazenamento para visualizar os jogos</h1>}
 		<ul role='list' className='game-list grid'>
 			{selectedStorageUnit.size > 0 &&
 				filteredList.map(game => {

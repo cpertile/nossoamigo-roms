@@ -24,6 +24,7 @@ h5, h4 {
 	white-space: nowrap;
 	overflow: scroll;
 	text-overflow: clip;
+	font-size: 1rem;
 }
 
 .disabled {

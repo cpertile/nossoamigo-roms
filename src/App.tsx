@@ -7,7 +7,9 @@ import StickyHeader from './components/StickyHeader'
 import StorageUnitSelector from './components/StorageUnitSelector/StorageUnitSelector'
 
 function sortingOptions() {
-	return (<></>)
+	return (<>
+	
+	</>)
 }
 
 function App() {

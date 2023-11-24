@@ -1,5 +1,5 @@
 import useGamesStore from '../../hooks/useGamesStore'
-import Button from '../Button/Button'
+import Button from 'react-bootstrap/Button'
 
 const ProgressIndicator: React.FC = () => {
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
@@ -12,7 +12,7 @@ const ProgressIndicator: React.FC = () => {
 		<>
 			<span style={{ padding: '6px' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Mb</span>
 			<Button
-				className='button red'
+				variant='danger'
 				onClick={() => clear()}
 				disabled={totalSize() == 0}
 			>
