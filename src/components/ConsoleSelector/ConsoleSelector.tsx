@@ -1,5 +1,7 @@
 import React from 'react'
 import useGamesStore from '../../hooks/useGamesStore'
+import FormCheckInput from 'react-bootstrap/FormCheckInput'
+import FormCheckLabel from 'react-bootstrap/FormCheckLabel'
 
 const ConsoleSelector: React.FC = () => {
 	const consoleFilters = useGamesStore(state => state.consoleFilters)
@@ -8,9 +10,9 @@ const ConsoleSelector: React.FC = () => {
 	return (
 		<div style={{ padding: '6px', display: 'flex', justifyContent: 'center', gap: 16 }}>
 			<span>
-				<label htmlFor='wii-checkbox'>Wii</label>
-				<input
+				<FormCheckInput
 					id='wii-checkbox'
+					as='input'
 					type='checkbox'
 					readOnly
 					checked={consoleFilters.includes('wii')}
@@ -22,10 +24,10 @@ const ConsoleSelector: React.FC = () => {
 						}
 					}}
 				/>
+				<FormCheckLabel htmlFor='wii-checkbox'>Wii</FormCheckLabel>
 			</span>
 			<span>
-				<label htmlFor='gamecube-checkbox'>GameCube</label>
-				<input
+				<FormCheckInput
 					id='gamecube-checkbox'
 					type='checkbox'
 					readOnly
@@ -38,6 +40,7 @@ const ConsoleSelector: React.FC = () => {
 						}
 					}}
 				/>
+				<FormCheckLabel htmlFor='gamecube-checkbox'>GameCube</FormCheckLabel>
 			</span>
 		</div>
 	)
