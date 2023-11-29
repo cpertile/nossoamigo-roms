@@ -44,6 +44,7 @@ const StorageUnitSelector: React.FC = () => {
 		<DropDownButton
 			variant='light'
 			title={title}
+			drop='down-centered'
 		>
 			<DropDown.Item as='button' name='0' onClick={handleSelect}>{storageUnits[0].name}</DropDown.Item>
 			<DropDown.Item as='button' name='1' onClick={handleSelect}>{storageUnits[1].name}</DropDown.Item>
