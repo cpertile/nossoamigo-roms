@@ -8,7 +8,7 @@ const ConsoleSelector: React.FC = () => {
 	const setConsoleFilters = useGamesStore(state => state.setConsoleFilters)
 
 	return (
-		<div style={{ padding: '6px', display: 'flex', justifyContent: 'center', gap: 16 }}>
+		<div style={{ padding: '6px', display: 'flex', justifyContent: 'center', gap: 16, color: 'white' }}>
 			<span>
 				<FormCheckInput
 					id='wii-checkbox'

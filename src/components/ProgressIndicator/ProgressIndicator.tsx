@@ -10,8 +10,9 @@ const ProgressIndicator: React.FC = () => {
 
 	return (
 		<>
-			<span style={{ padding: '6px' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Mb</span>
+			<span style={{ padding: '6px', color: 'white' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Mb</span>
 			<Button
+				size='sm'
 				variant='danger'
 				onClick={() => clear()}
 				disabled={totalSize() == 0}

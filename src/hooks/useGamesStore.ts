@@ -2,11 +2,18 @@ import { create } from 'zustand'
 import { Game } from '../components/GameCard/GameCard'
 import { StorageUnit } from '../components/StorageUnitSelector/StorageUnitSelector'
 
-type GamesStore = {
+export interface SortingOptions {
+	type: 'Alpha' | 'Size'
+	order: 'ASC' | 'DESC'
+}
+
+interface GamesStore {
 	searchValue: string
 	setSearchValue: (value: string) => void
 	consoleFilters: string[]
 	setConsoleFilters: (filters: string[]) => void
+	sortingOptions: SortingOptions
+	setSortingOptions: (options: SortingOptions) => void
 	selectedStorageUnit: StorageUnit | Record<string, never>
 	changeStorageUnit: (storageUnit: StorageUnit) => void
 	selectedGames: Game[]
@@ -21,6 +28,8 @@ const useGamesStore = create<GamesStore>((set, get) => ({
 	setSearchValue: (value: string) => set(() => ({ searchValue: value })),
 	consoleFilters: ['wii', 'gamecube'],
 	setConsoleFilters: (filters: string[]) => set(() => ({ consoleFilters: filters })),
+	sortingOptions: { type: 'Alpha', order: 'ASC' },
+	setSortingOptions: (options: SortingOptions) => set(() => ({ sortingOptions: options })),
 	selectedStorageUnit: {},
 	changeStorageUnit: (storageUnit) => set((state) => {
 		if (storageUnit.size < get().totalSize()) {
