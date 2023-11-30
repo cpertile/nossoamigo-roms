@@ -46,7 +46,7 @@ const useGamesStore = create<GamesStore>((set, get) => ({
 	})),
 	removeGame: (game: Game) => set(state => ({ selectedGames: state.selectedGames.filter(item => item.id !== game.id) })),
 	totalSize: () => {
-		return get().selectedGames.reduce((acc: number, item: Game) => acc += item.size, 0)
+		return parseFloat(get().selectedGames.reduce((acc: number, item: Game) => acc += item.size, 0).toFixed(2))
 	},
 	clear: () => set(() => ({ selectedGames: [] })),
 }))
