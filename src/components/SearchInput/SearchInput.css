@@ -1,0 +1,15 @@
+.input {
+	border: 1px solid grey;
+	border-radius: 1em;
+	padding: 0.4em 1em;
+	margin: 8px;
+	width: 80%;
+	max-width: 650px;
+	font-size: 1em;
+}
+
+@media screen and (min-width: 1024px) {
+	.input {
+		font-size: 1.5em
+	}
+}

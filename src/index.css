@@ -24,10 +24,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+	background: #0B88FF;
 }
 
 h1 {
   font-size: 2.8em;
   line-height: 1.1;
 	margin: 12px 0;
+	color: #F8F9FA;
 }

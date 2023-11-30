@@ -18,3 +18,13 @@
 .button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
 }
+
+.red {
+	background: rgb(252, 51, 51, 0.9);
+	color: white;
+}
+
+.button:disabled {
+	background: #aaaaaa;
+	pointer-events: none;
+}

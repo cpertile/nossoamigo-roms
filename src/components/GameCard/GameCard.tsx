@@ -15,45 +15,45 @@ type GameCardProps = {
 }
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
-	const { selectedGames } = useGamesStore()
-	const [imageUrl, setImageUrl] = useState(`../../../assets/3D/${game.id}.png`)
+	const selectedGames = useGamesStore(state => state.selectedGames)
+	const addGame = useGamesStore(state => state.addGame)
+	const removeGame = useGamesStore(state => state.removeGame)
+	const totalSize = useGamesStore(state => state.totalSize)
+	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
+	const [imageUrl, setImageUrl] = useState(`../../../public/assets/3D/${game.id}.png`)
 	const [isChecked, setIsChecked] = useState(selectedGames.find(item => item.id === game.id) ? true : false)
-	const { addGame, removeGame, totalSize, selectedStorageUnit } = useGamesStore()
 
 	useEffect(() => {
 		setIsChecked(selectedGames.find(item => item.id === game.id) ? true : false)
 	}, [selectedGames, game.id])
 
 	function handleClick() {
-		if (!isChecked) {
+		if (isChecked === false) {
 			if (totalSize() + game.size > selectedStorageUnit.size) return
 			addGame(game)
 			setIsChecked(true)
 		}
 
-		if (isChecked) {
+		if (isChecked === true) {
 			removeGame(game)
 			setIsChecked(false)
 		}
 	}
 
-	function gameCardStyler() {
+	function handleStyle() {
 		if (isChecked) return 'selected'
 		if (game.size > (selectedStorageUnit.size - totalSize())) return 'disabled'
 		return ''
 	}
 
 	return (
-		<li className={`gamecard ${gameCardStyler()}`} onClick={handleClick}>
-			<h5>{game.name}</h5>
+		<li className={`gamecard ${handleStyle()}`} onClick={handleClick}>
+			<h4>{game.name}</h4>
 			<img
 				src={imageUrl}
 				className='game-cover'
 				loading='lazy'
-				onError={() => {
-					console.log('asset failed to load')
-					setImageUrl(`../../../assets/2D/${game.id}.png`)
-				}}
+				onError={() => setImageUrl(`../../../public/assets/2D/${game.id}.png`)}
 			/>
 			<div className='game-details'>
 				<small>{game.size} Mb</small>

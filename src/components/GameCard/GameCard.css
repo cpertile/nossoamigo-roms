@@ -18,9 +18,13 @@
 	background: rgb(230, 255, 230);
 }
 
-h5 {
+h5, h4 {
 	margin: 0;
 	grid-column: span 2;
+	white-space: nowrap;
+	overflow: scroll;
+	text-overflow: clip;
+	font-size: 1rem;
 }
 
 .disabled {
