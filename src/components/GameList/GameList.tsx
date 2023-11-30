@@ -3,7 +3,7 @@ import useGamesStore from '../../hooks/useGamesStore';
 import GameCard, { Game } from '../GameCard/GameCard';
 import './GameList.css';
 
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL || 'https://wiicube-api.onrender.com'
 
 const GameList: React.FC = memo(() => {
 	const [gameList, setGameList] = useState<Game[]>([])
