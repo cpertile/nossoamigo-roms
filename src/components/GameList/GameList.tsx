@@ -1,10 +1,16 @@
 import { memo, useMemo } from 'react';
-import GamesDB from '../../databases/newdb.json';
 import useGamesStore from '../../hooks/useGamesStore';
 import GameCard, { Game } from '../GameCard/GameCard';
 import './GameList.css';
 
-const gameList = GamesDB.games
+const apiUrl = import.meta.env.VITE_API_URL
+
+async function getGames() {
+	const response = await fetch(`${apiUrl}/games`)
+	const games = await response.json()
+	return games
+}
+const gameList: Game[] = await getGames()
 
 const GameList: React.FC = memo(() => {
 	const searchValue = useGamesStore(state => state.searchValue)
@@ -14,6 +20,7 @@ const GameList: React.FC = memo(() => {
 
 	const filteredList: Game[] = useMemo(() => {
 		const searchValueLowerCase = searchValue.toLowerCase()
+
 		const filteredList = gameList.filter(item => {
 			if (searchValue == '') return consoleFilters.includes(item.console)
 			return item.name.toLowerCase().includes(searchValueLowerCase) && consoleFilters.includes(item.console)
@@ -31,7 +38,6 @@ const GameList: React.FC = memo(() => {
 
 		return filteredList
 	}, [consoleFilters, searchValue, sortingOptions.order, sortingOptions.type])
-
 
 	return (<>
 		<ul role='list' className='game-list grid'>
