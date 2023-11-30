@@ -1,22 +1,30 @@
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import useGamesStore from '../../hooks/useGamesStore';
 import GameCard, { Game } from '../GameCard/GameCard';
 import './GameList.css';
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-async function getGames() {
-	const response = await fetch(`${apiUrl}/games`)
-	const games = await response.json()
-	return games
-}
-const gameList: Game[] = await getGames()
-
 const GameList: React.FC = memo(() => {
+	const [gameList, setGameList] = useState<Game[]>([])
 	const searchValue = useGamesStore(state => state.searchValue)
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
 	const consoleFilters = useGamesStore(state => state.consoleFilters)
 	const sortingOptions = useGamesStore(state => state.sortingOptions)
+
+	useEffect(() => {
+		const loadGames = async () => {
+			try {
+				const response = await fetch(`${apiUrl}/games`)
+				const result = await response.json()
+				setGameList(result)
+			} catch (error) {
+				console.error({ error, message: 'Failed to load games' })
+			}
+		}
+
+		loadGames()
+	}, [])
 
 	const filteredList: Game[] = useMemo(() => {
 		const searchValueLowerCase = searchValue.toLowerCase()
@@ -37,7 +45,7 @@ const GameList: React.FC = memo(() => {
 		}
 
 		return filteredList
-	}, [consoleFilters, searchValue, sortingOptions.order, sortingOptions.type])
+	}, [consoleFilters, searchValue, sortingOptions.order, sortingOptions.type, gameList])
 
 	return (<>
 		<ul role='list' className='game-list grid'>
