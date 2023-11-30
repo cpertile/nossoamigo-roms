@@ -14,13 +14,15 @@ type GameCardProps = {
 	game: Game
 }
 
+const imgPath = process.env.NODE_ENV == 'development' ? '../../../public/assets/3D/' : '../../../assets/3D/'
+
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
 	const selectedGames = useGamesStore(state => state.selectedGames)
 	const addGame = useGamesStore(state => state.addGame)
 	const removeGame = useGamesStore(state => state.removeGame)
 	const totalSize = useGamesStore(state => state.totalSize)
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
-	const [imageUrl, setImageUrl] = useState(`../../../public/assets/3D/${game.id}.png`)
+	const [imageUrl, setImageUrl] = useState(`${imgPath}${game.id}.png`)
 	const [isChecked, setIsChecked] = useState(selectedGames.find(item => item.id === game.id) ? true : false)
 
 	useEffect(() => {
@@ -53,7 +55,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
 				src={imageUrl}
 				className='game-cover'
 				loading='lazy'
-				onError={() => setImageUrl(`../../../public/assets/2D/${game.id}.png`)}
+				onError={() => setImageUrl(`${imgPath.replace('3', '2')}${game.id}.png`)}
 			/>
 			<div className='game-details'>
 				<small>{game.size} Mb</small>
