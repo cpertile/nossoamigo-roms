@@ -7,9 +7,9 @@ import SortingOptions from './components/SortingOptions'
 import StickyHeader from './components/StickyHeader'
 import StorageUnitSelector from './components/StorageUnitSelector/StorageUnitSelector'
 
-function Divider() {
-	return (<div style={{ borderBottom: '1px solid #dedede', margin: '4px 0' }} />)
-}
+// function Divider() {
+// 	return (<div style={{ borderBottom: '1px solid #dedede', margin: '4px 0' }} />)
+// }
 
 function App() {
 	return (<>
