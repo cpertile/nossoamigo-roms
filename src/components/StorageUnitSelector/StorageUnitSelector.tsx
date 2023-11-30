@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import DropDown from 'react-bootstrap/Dropdown'
 import DropDownButton from 'react-bootstrap/DropdownButton'
 import useGamesStore from '../../hooks/useGamesStore'
@@ -28,16 +28,14 @@ const storageUnits: StorageUnit[] = [
 ]
 
 const StorageUnitSelector: React.FC = () => {
-	// Subscribing to changes on "selectedGames"
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const selectedGames = useGamesStore(state => state.selectedGames)
-	const changeStorageUnit = useGamesStore(state => state.changeStorageUnit)
+	const { changeStorageUnit } = useGamesStore()
 	const [title, setTitle] = useState('Selecione uma unidade de armazenamento: ')
 
-	function handleSelect(e: any) {
+	function handleSelect(e: MouseEvent<HTMLButtonElement>) {
 		e.preventDefault()
-		setTitle(e.target.innerText)
-		changeStorageUnit(storageUnits[e.target.name])
+		const target = e.target as HTMLButtonElement
+		'innerText' in target && setTitle(target.innerText)
+		'name' in target && changeStorageUnit(storageUnits[Number(target.name)])
 	}
 
 	return (<>
