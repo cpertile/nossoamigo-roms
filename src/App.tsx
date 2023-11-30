@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react'
 import './App.css'
 import GameList from './components/GameList/GameList'
+
+// function Divider() {
+// 	return (<div style={{ borderBottom: '1px solid #dedede', margin: '4px 0' }} />)
+// }
+import Button from './components/Button/Button'
 import Input from './components/Input/Input'
 import GamesDB from './databases/newdb.json'
 import useGamesStore from './hooks/useGamesStore'
-import Button from './components/Button/Button'
 
 export interface StorageUnit {
 	id: number
@@ -29,8 +33,6 @@ const storageUnits: StorageUnit[] = [
 		size: 931000
 	}
 ]
-
-// TODO: implement Wii | Gamecube filter (use the store)
 
 function App() {
 	const gameList = GamesDB.games
