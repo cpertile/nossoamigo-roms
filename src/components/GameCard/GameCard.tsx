@@ -14,7 +14,7 @@ type GameCardProps = {
 	game: Game
 }
 
-const imgPath = process.env.NODE_ENV == 'development' ? '../../../public/assets/3D/' : '../../../assets/3D/'
+const imgPath = '../../../nossoamigo-roms/assets/3D/'
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
 	const selectedGames = useGamesStore(state => state.selectedGames)
