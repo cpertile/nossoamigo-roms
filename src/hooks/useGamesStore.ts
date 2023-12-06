@@ -7,15 +7,27 @@ export interface SortingOptions {
 	order: 'ASC' | 'DESC'
 }
 
-interface GamesStore {
+interface SearchInput {
 	searchValue: string
 	setSearchValue: (value: string) => void
+}
+
+interface ConsoleFilters {
 	consoleFilters: string[]
 	setConsoleFilters: (filters: string[]) => void
+}
+
+interface SelectedSortingOptions {
 	sortingOptions: SortingOptions
 	setSortingOptions: (options: SortingOptions) => void
+}
+
+interface StorageUnitSelector {
 	selectedStorageUnit: StorageUnit | Record<string, never>
 	changeStorageUnit: (storageUnit: StorageUnit) => void
+}
+
+interface SelectedGames {
 	selectedGames: Game[]
 	addGame: (game: Game) => void
 	removeGame: (game: Game) => void
@@ -23,13 +35,18 @@ interface GamesStore {
 	clear: () => void
 }
 
+type GamesStore = SearchInput & ConsoleFilters & SelectedSortingOptions & StorageUnitSelector & SelectedGames
+
 const useGamesStore = create<GamesStore>((set, get) => ({
 	searchValue: '',
 	setSearchValue: (value: string) => set(() => ({ searchValue: value })),
-	consoleFilters: ['wii', 'gamecube'],
+
+	consoleFilters: ['wii'],
 	setConsoleFilters: (filters: string[]) => set(() => ({ consoleFilters: filters })),
+
 	sortingOptions: { type: 'Alpha', order: 'ASC' },
 	setSortingOptions: (options: SortingOptions) => set(() => ({ sortingOptions: options })),
+
 	selectedStorageUnit: {},
 	changeStorageUnit: (storageUnit) => set((state) => {
 		if (storageUnit.size < get().totalSize()) {
@@ -40,6 +57,7 @@ const useGamesStore = create<GamesStore>((set, get) => ({
 			selectedStorageUnit: storageUnit
 		}
 	}),
+	
 	selectedGames: [],
 	addGame: (game: Game) => set((state) => ({
 		selectedGames: [...state.selectedGames, game]
