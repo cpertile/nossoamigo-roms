@@ -1,25 +1,27 @@
+import { ProgressBar } from 'react-bootstrap'
 import useGamesStore from '../../hooks/useGamesStore'
-import Button from 'react-bootstrap/Button'
+import './ProgressIndicator.css'
+
+function convertMBtoGB(mb: number): number {
+	return parseFloat((mb / 1000).toFixed(2))
+}
 
 const ProgressIndicator: React.FC = () => {
 	const selectedStorageUnit = useGamesStore(state => state.selectedStorageUnit)
-	// const totalSize = useGamesStore(state => state.totalSize)
-	// const clear = useGamesStore(state => state.clear)
-
-	const { totalSize, clear } = useGamesStore()
+	const selectedGames = useGamesStore(state => state.selectedGames)
+	const totalSize = useGamesStore(state => state.totalSize)
 
 	return (
-		<>
-			<span style={{ padding: '6px', color: 'white' }}>Usado: {totalSize()} de {selectedStorageUnit?.size} Mb</span>
-			<Button
-				size='sm'
-				variant='danger'
-				onClick={() => clear()}
-				disabled={totalSize() == 0}
-			>
-				Zerar
-			</Button>
-		</>
+		<div id='progress-indicator' className='progress-indicator'>
+			<ProgressBar
+				min={0}
+				max={selectedStorageUnit.size}
+				now={totalSize()}
+				style={{ height: 'auto', maxWidth: 'auto' }}
+			/>
+
+			<span>{convertMBtoGB(totalSize())} / {convertMBtoGB(selectedStorageUnit?.size)} GB - {selectedGames.length} jogos</span>
+		</div >
 	)
 }
 

@@ -18,8 +18,8 @@ const SortingOptions: React.FC = () => {
 				<Button active={isAlphaDesc} variant='outline-light' onClick={() => setSortingOptions({ type: 'Alpha', order: 'DESC' })}>Z-A</Button>
 			</ButtonGroup>
 			<ButtonGroup>
-				<Button active={isSizeAsc} variant='outline-light' onClick={() => setSortingOptions({ type: 'Size', order: 'ASC' })}>Mb ⬇️</Button>
-				<Button active={isSizeDesc} variant='outline-light' onClick={() => setSortingOptions({ type: 'Size', order: 'DESC' })}>Mb ⬆️</Button>
+				<Button active={isSizeAsc} variant='outline-light' onClick={() => setSortingOptions({ type: 'Size', order: 'ASC' })}>MB ⬇️</Button>
+				<Button active={isSizeDesc} variant='outline-light' onClick={() => setSortingOptions({ type: 'Size', order: 'DESC' })}>MB ⬆️</Button>
 			</ButtonGroup>
 		</>
 	)

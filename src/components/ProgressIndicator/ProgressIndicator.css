@@ -1,0 +1,14 @@
+.progress-indicator {
+	margin-top: 6px;
+	display: grid;
+	row-gap: 12px;
+	
+	> span {
+		color: black;
+	}
+}
+
+.progress-indicator > * {
+	grid-row: 1;
+	grid-column: 1;
+}
