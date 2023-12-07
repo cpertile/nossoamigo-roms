@@ -48,16 +48,8 @@ const useGamesStore = create<GamesStore>((set, get) => ({
 	setSortingOptions: (options: SortingOptions) => set(() => ({ sortingOptions: options })),
 
 	selectedStorageUnit: {},
-	changeStorageUnit: (storageUnit) => set((state) => {
-		if (storageUnit.size < get().totalSize()) {
-			alert('Nesta unidade não cabem os jogos já selecionados, revertendo...')
-			return { selectedStorageUnit: state.selectedStorageUnit }
-		}
-		return {
-			selectedStorageUnit: storageUnit
-		}
-	}),
-	
+	changeStorageUnit: (storageUnit) => set(() => ({ selectedStorageUnit: storageUnit })),
+
 	selectedGames: [],
 	addGame: (game: Game) => set((state) => ({
 		selectedGames: [...state.selectedGames, game]

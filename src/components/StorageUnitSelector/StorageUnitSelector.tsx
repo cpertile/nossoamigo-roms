@@ -12,30 +12,36 @@ export interface StorageUnit {
 const storageUnits: StorageUnit[] = [
 	{
 		id: 1,
-		name: 'Pendrive 64 Gb (57 utilizáveis)',
+		name: 'Pendrive 64 GB (57 utilizáveis)',
 		size: 57620
 	},
 	{
 		id: 2,
-		name: 'HD 500 Gb (465 utilizáveis)',
+		name: 'HD 500 GB (465 utilizáveis)',
 		size: 465760
 	},
 	{
 		id: 3,
-		name: 'HD 1 Tb (931 utilizáveis)',
+		name: 'HD 1 TB (931 utilizáveis)',
 		size: 931000
 	}
 ]
 
 const StorageUnitSelector: React.FC = () => {
-	const { changeStorageUnit } = useGamesStore()
+	const { changeStorageUnit, totalSize } = useGamesStore()
 	const [title, setTitle] = useState('Selecione uma unidade de armazenamento: ')
 
 	function handleSelect(e: MouseEvent<HTMLButtonElement>) {
 		e.preventDefault()
 		const target = e.target as HTMLButtonElement
+
+		if (storageUnits[parseInt(target.name)].size < totalSize()) {
+			alert('Nesta unidade não cabem os jogos já selecionados, revertendo...')
+			return
+		}
+
 		'innerText' in target && setTitle(target.innerText)
-		'name' in target && changeStorageUnit(storageUnits[Number(target.name)])
+		'name' in target && changeStorageUnit(storageUnits[parseInt(target.name)])
 	}
 
 	return (<>

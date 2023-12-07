@@ -58,7 +58,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
 				onError={() => setImageUrl(`${imgPath.replace('3', '2')}${game.id}.png`)}
 			/>
 			<div className='game-details'>
-				<small>{game.size} Mb</small>
+				<small>{game.size} MB</small>
 				<small>{game.console}</small>
 			</div>
 			<input
