@@ -2,13 +2,47 @@
 	margin-top: 6px;
 	display: grid;
 	row-gap: 12px;
-	
-	> span {
-		color: black;
+	width: 16rem;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto;
+}
+
+.progress-bar {
+	color: black;
+	height: 5vmin;
+	line-height: 5vmin;
+}
+
+.fundo {
+	display: grid;
+	width: 100%;
+	height: 1.75rem;
+	border-radius: 0.375rem;
+	background: white;
+
+	> * {
+		grid-row: 1;
+		grid-column: 1;
 	}
 }
 
-.progress-indicator > * {
+.texto {
+	z-index: 1;
 	grid-row: 1;
-	grid-column: 1;
+	color: black;
+	text-align: center;
+	padding-top: 0.1rem;
+
+	>::after {
+		color: white;
+		mix-blend-mode: difference;
+	}
+}
+
+.barra {
+	grid-row: 2;
+	height: 0.25rem;
+	border-radius: 0.375rem;
+	background: blue;
+	transition: 200ms ease-out;
 }

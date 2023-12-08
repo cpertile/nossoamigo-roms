@@ -1,4 +1,3 @@
-import { ProgressBar } from 'react-bootstrap'
 import useGamesStore from '../../hooks/useGamesStore'
 import './ProgressIndicator.css'
 
@@ -13,14 +12,10 @@ const ProgressIndicator: React.FC = () => {
 
 	return (
 		<div id='progress-indicator' className='progress-indicator'>
-			<ProgressBar
-				min={0}
-				max={selectedStorageUnit.size}
-				now={totalSize()}
-				style={{ height: 'auto', maxWidth: 'auto' }}
-			/>
-
-			<span>{convertMBtoGB(totalSize())} / {convertMBtoGB(selectedStorageUnit?.size)} GB - {selectedGames.length} jogos</span>
+			<div className="fundo">
+				<span className="texto">{`${convertMBtoGB(totalSize())} / ${convertMBtoGB(selectedStorageUnit?.size)} GB (${selectedGames.length} jogos)`}</span>
+				<div className="barra" style={{ width: `${((totalSize() / selectedStorageUnit?.size) * 100).toFixed(2)}%` }} />
+			</div>
 		</div >
 	)
 }
